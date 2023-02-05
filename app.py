@@ -111,6 +111,14 @@ def reply():
                             "4️⃣ اختباري اختباري اختباري :\n"
                             "5️⃣ اختباري اختباري اختباري :\n"
                             "0️⃣ اختباري اختباري اختباري :")
+            else:
+                users.update_one(
+                    {"number": number}, {"$set": {"status": "UnivApproval"}})
+                res.message("إختيار خاطيء، تم الرجوع لقائمة *الإستفسار عن القبول بالجامعة*\n"
+                            "1️⃣ للقبول بمرحلة البكالوريوس لحملة شهادة الثانوية العامة:\n"
+                            "2️⃣ للقبول ببرامج الماجستير والدبلوم العالي:\n"
+                            "3️⃣ للقبول ببرنامج بكالوريوس الطب (المسار الثاني) لحملة درجة البكالوريوس في التخصصات المطلوبة:\n"
+                            "0️⃣ للرجوع للقائمة السابقة:")
 
         elif option == 0:
             if user["status"] == "UnivApproval" or user["status"] == "StudentInquery" or user["status"] == "GraduatedInquery" or user["status"] == "OtherInquery":
@@ -142,7 +150,7 @@ def reply():
                             "4️⃣ للإستفسارات الأخري" "\n")
                 users.update_one(
                     {"number": number}, {"$set": {"status": "main"}})
-           
+
     users.update_one({"number": number}, {"$push": {"messages": {"text": text, "date": datetime.now()}}})
     return str(res)
 
