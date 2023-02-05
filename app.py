@@ -70,14 +70,14 @@ def reply():
                         "https://ksau-hs.edu.sa/Arabic/Admission/Pages/AdmissionGuide.aspx"
                         )
         elif option == 0:
-            res.media("https://ksau-hs.edu.sa/Arabic/MediaCenter/News/PublishingImages/_w/EventAdmin001_jpg.jpg")
-            res.message(" \n القائمة الرئيسية *عمادة القبول والتسجيل*"
+            mess = res.message(" \n القائمة الرئيسية *عمادة القبول والتسجيل*"
                         "\n"
                         " يرجي إدخال رقم الخدمة بناء علي نوع الإستفسار الخاص بكم:" "\n \n"
                         "1️⃣ للإستفسار عن القبول بالجامعة" "\n"
                         "2️⃣ لإستفسارات طلاب الجامعة" "\n"
                         "3️⃣ لإستفسارات الخريجين" "\n"
                         "4️⃣ للإستفسارات الأخري" "\n")
+            mess.media("https://ksau-hs.edu.sa/Arabic/MediaCenter/News/PublishingImages/_w/EventAdmin001_jpg.jpg")
         else:
             res.message(" \n إختيار خاطيء تم الرجوع للقائمة الرئيسية *عمادة القبول والتسجيل*"
                         "\n"
