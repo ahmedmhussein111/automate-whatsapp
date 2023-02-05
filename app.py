@@ -36,7 +36,7 @@ def reply():
         except:
             users.update_one(
                 {"number": number}, {"$set": {"status": "main"}})
-            res.message(user["status"] + "Please enter a valid response")
+            res.message(user["status"] + "0️⃣ للرجوع للقائمة الرئيسة")
             return str(res)
 
         if user["status"] == "main" and option == 0:
