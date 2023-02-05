@@ -26,7 +26,7 @@ def reply():
     except:
         users.update_one(
             {"number": number}, {"$set": {"status": "main"}})
-        res.message(user["status"] + "0️⃣ للرجوع للقائمة الرئيسة")
+        res.message("0️⃣ لعرض القائمة الرئيسة")
         return str(res)
 
     if user["status"] == "main":
@@ -69,6 +69,15 @@ def reply():
                         "\n"
                         "https://ksau-hs.edu.sa/Arabic/Admission/Pages/AdmissionGuide.aspx"
                         )
+        elif option == 0:
+            res.media("https://ksau-hs.edu.sa/Arabic/MediaCenter/News/PublishingImages/_w/EventAdmin001_jpg.jpg")
+            res.message(" \n القائمة الرئيسية *عمادة القبول والتسجيل*"
+                        "\n"
+                        " يرجي إدخال رقم الخدمة بناء علي نوع الإستفسار الخاص بكم:" "\n \n"
+                        "1️⃣ للإستفسار عن القبول بالجامعة" "\n"
+                        "2️⃣ لإستفسارات طلاب الجامعة" "\n"
+                        "3️⃣ لإستفسارات الخريجين" "\n"
+                        "4️⃣ للإستفسارات الأخري" "\n")
         else:
             res.message(" \n إختيار خاطيء تم الرجوع للقائمة الرئيسية *عمادة القبول والتسجيل*"
                         "\n"
