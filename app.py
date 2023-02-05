@@ -36,7 +36,8 @@ def reply():
         except:
             users.update_one(
                 {"number": number}, {"$set": {"status": "main"}})
-            res.message("إختيار خاطيء إختر 0 للرجوع للقائمة السابقة")
+            res.message(user["status"] + "Please enter a valid response")
+            return str(res)
 
         if user["status"] == "main" and option == 0:
             res.message("القائمة الرئيسية *لعمادة القبول والتسجيل*"
@@ -133,7 +134,7 @@ def reply():
         else:
             users.update_one(
                 {"number": number}, {"$set": {"status": "main"}})
-            res.message("0️⃣ للرجوع للقائمة الرئيسة")
+            res.message(user["status"] + "0️⃣ للرجوع للقائمة الرئيسة")
     users.update_one({"number": number}, {"$push": {"messages": {"text": text, "date": datetime.now()}}})
     return str(res)
 
