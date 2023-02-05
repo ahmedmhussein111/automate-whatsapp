@@ -18,9 +18,8 @@ def reply():
     number = request.form.get("From")
     number = number.replace("whatsapp:", "")[:-2]
     res = MessagingResponse()
-    users.insert_one({"number": number, "status": "main", "messages": []})
     user = users.find_one({"number": number})
-    if bool(user) == False:
+    if user is None:
         res.message(" \n اهلا وسهلا بكم في *عمادة القبول والتسجيل*"
                     "\n"
                     " يرجي إدخال رقم الخدمة بناء علي نوع الإستفسار الخاص بكم:" "\n \n"
@@ -30,7 +29,7 @@ def reply():
                     "4️⃣ للإستفسارات الأخري" "\n")
 
         res.media("https://ksau-hs.edu.sa/_catalogs/masterpage/KSAUPortal/image/KSAU-HS%20logos-02.svg")
-        users.insert_one({"number": number, "status": "main", "messages": []})
+        users.insert_one({"number": number, "status": "new", "messages": []})
     elif user["status"] == "main" or user["status"] == "UnivApproval" or user["status"] == "StudentInquery" or user["status"] == "GraduatedInquery" or user["status"] == "OtherInquery":
         try:
             option = int(text)
