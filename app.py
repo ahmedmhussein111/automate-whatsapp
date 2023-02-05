@@ -131,10 +131,6 @@ def reply():
                         "5️⃣ اختباري اختباري اختباري :\n"
                         "0️⃣ اختباري اختباري اختباري :")
 
-        else:
-            users.update_one(
-                {"number": number}, {"$set": {"status": "main"}})
-            res.message(user["status"] + "0️⃣ للرجوع للقائمة الرئيسة")
     users.update_one({"number": number}, {"$push": {"messages": {"text": text, "date": datetime.now()}}})
     return str(res)
 
