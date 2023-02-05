@@ -18,6 +18,15 @@ def reply():
     number = request.form.get("From")
     number = number.replace("whatsapp:", "")[:-2]
     res = MessagingResponse()
+    res.message(" \n اهلا وسهلا بكم في *عمادة القبول والتسجيل*"
+                "\n"
+                " يرجي إدخال رقم الخدمة بناء علي نوع الإستفسار الخاص بكم:" "\n \n"
+                "1️⃣ للإستفسار عن القبول بالجامعة" "\n"
+                "2️⃣ لإستفسارات طلاب الجامعة" "\n"
+                "3️⃣ لإستفسارات الخريجين" "\n"
+                "4️⃣ للإستفسارات الأخري" "\n")
+
+    res.media("https://ksau-hs.edu.sa/_catalogs/masterpage/KSAUPortal/image/KSAU-HS%20logos-02.svg")
     user = users.find_one({"number": number})
     if user is None:
         res.message(" \n اهلا وسهلا بكم في *عمادة القبول والتسجيل*"
