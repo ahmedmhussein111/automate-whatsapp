@@ -130,7 +130,9 @@ def reply():
                         "0️⃣ اختباري اختباري اختباري :")
 
         else:
-            res.message("Please enter a valid response")
+            users.update_one(
+                {"number": number}, {"$set": {"status": "main"}})
+            res.message("0️⃣ للرجوع للقائمة الرئيسة")
     users.update_one({"number": number}, {"$push": {"messages": {"text": text, "date": datetime.now()}}})
     return str(res)
 
