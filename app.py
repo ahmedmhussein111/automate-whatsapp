@@ -37,7 +37,7 @@ def reply():
             res.message("Please enter a valid response")
             return str(res)
 
-        if option == 0:
+        if user["status"] == "main" and option == 0:
             res.message("القائمة الرئيسية *لعمادة القبول والتسجيل*"
                         "\n"
                         " يرجي إدخال رقم الخدمة بناء علي نوع الإستفسار الخاص بكم:" "\n \n"
@@ -46,7 +46,7 @@ def reply():
                         "3️⃣ لإستفسارات الخريجين" "\n"
                         "4️⃣ للإستفسارات الأخري" "\n")
 
-        elif option == 1:
+        elif user["status"] == "main" and option == 1:
             res.message("*الإستفسار عن القبول بالجامعة*\n"
                         "1️⃣ للقبول بمرحلة البكالوريوس لحملة شهادة الثانوية العامة:\n"
                         "2️⃣ للقبول ببرامج الماجستير والدبلوم العالي:\n"
@@ -54,7 +54,7 @@ def reply():
                         "0️⃣ للرجوع للقائمة السابقة:")
             users.update_one(
                 {"number": number}, {"$set": {"status": "UnivApproval"}})
-        elif option == 2:
+        elif user["status"] == "main" and option == 2:
             users.update_one(
                 {"number": number}, {"$set": {"status": "StudentInquery"}})
             res.message("*استفسارات طلاب الجامعة*\n"
@@ -63,7 +63,7 @@ def reply():
                         "3️⃣ الإستعلام عن حالة الطلب في نظام المعلومات الطلابي:\n"
                         "4️⃣ الإستعلام عن المكافآت:\n"
                         "0️⃣ للرجوع للقائمة السابقة:")
-        elif option == 3:
+        elif user["status"] == "main" and option == 3:
             users.update_one(
                 {"number": number}, {"$set": {"status": "GraduatedInquery"}})
             res.message("*استفسارات الخريجين*\n"
@@ -71,8 +71,8 @@ def reply():
                         "2️⃣ للإستعلام عن إستلام الوثائق:\n"
                         "3️⃣ لطلب سجل أكاديمي:\n"
                         "4️⃣ للتحقق من وثائق الخريجين:\n"
-                        "0️⃣ للرجوع للقائمة السابقة:")
-        elif option == 4:
+                        "0️⃣ للرجوع للقائمة السابقة:") 
+        elif user["status"] == "main" and option == 4:
             users.update_one(
                 {"number": number}, {"$set": {"status": "OtherInquery"}})
             res.message("*الإستفسارات الأخري*\n"
@@ -85,7 +85,39 @@ def reply():
                         "\n"
                         "https://ksau-hs.edu.sa/Arabic/Admission/Pages/AdmissionGuide.aspx"
                         )
-
+        elif user["status"] == "UnivApproval" and option == 1:
+            users.update_one(
+                {"number": number}, {"$set": {"status": "UnivApproval"}})
+            res.message("*القبول بمرحلة البكالوريوس لحملة شهادة الثانوية العامة*\n"
+                        "1️⃣ للإستفسار عن فترة التقديم :\n"
+                        "2️⃣ للإستفسار عن شروط ومعايير القبول والتخصصات المتاحة للقبول:\n"
+                        "3️⃣ أواجه مشكلة تقنية في بوابة التقديم الإلكتروني، ما الحل؟:\n"
+                        "4️⃣ للإستعلام عن حالة الترشيح:\n"
+                         "5️⃣ للإستفسارات الأخري:\n"
+                        "0️⃣ للرجوع للقائمة السابقة:")
+            
+        elif user["status"] == "UnivApproval" and option == 2:
+            users.update_one(
+                {"number": number}, {"$set": {"status": "UnivApproval"}})
+            res.message("*القبول ببرنامج الماجستير والدبلوم العالي*\n"
+                        "1️⃣ اختباري اختباري اختباري  :\n"
+                        "2️⃣ اختباري اختباري اختباري :\n"
+                        "3️⃣ اختباري اختباري اختباري ؟:\n"
+                        "4️⃣ اختباري اختباري اختباري :\n"
+                        "5️⃣ اختباري اختباري اختباري :\n"
+                        "0️⃣ اختباري اختباري اختباري :")
+            
+        elif user["status"] == "UnivApproval" and option == 3:
+            users.update_one(
+                {"number": number}, {"$set": {"status": "UnivApproval"}})
+            res.message("*القبول ببرنامج بكالوريوس الطب (المسار الثاني) لحملة درجة البكالوريوس في التخصصات المطلوبة*\n"
+                        "1️⃣ اختباري اختباري اختباري  :\n"
+                        "2️⃣ اختباري اختباري اختباري :\n"
+                        "3️⃣ اختباري اختباري اختباري ؟:\n"
+                        "4️⃣ اختباري اختباري اختباري :\n"
+                        "5️⃣ اختباري اختباري اختباري :\n"
+                        "0️⃣ اختباري اختباري اختباري :")
+            
         else:
             res.message("Please enter a valid response")
     users.update_one({"number": number}, {"$push": {"messages": {"text": text, "date": datetime.now()}}})
