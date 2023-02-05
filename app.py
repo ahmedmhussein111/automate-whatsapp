@@ -45,6 +45,17 @@ def reply():
                         "2️⃣ لإستفسارات طلاب الجامعة" "\n"
                         "3️⃣ لإستفسارات الخريجين" "\n"
                         "4️⃣ للإستفسارات الأخري" "\n")
+            users.update_one(
+                {"number": number}, {"$set": {"status": "main"}})
+
+        if user["status"] == "UnivApproval" and option == 0:
+            res.message("*الإستفسار عن القبول بالجامعة*\n"
+                        "1️⃣ للقبول بمرحلة البكالوريوس لحملة شهادة الثانوية العامة:\n"
+                        "2️⃣ للقبول ببرامج الماجستير والدبلوم العالي:\n"
+                        "3️⃣ للقبول ببرنامج بكالوريوس الطب (المسار الثاني) لحملة درجة البكالوريوس في التخصصات المطلوبة:\n"
+                        "0️⃣ للرجوع للقائمة السابقة:")
+            users.update_one(
+                {"number": number}, {"$set": {"status": "main"}})
 
         elif user["status"] == "main" and option == 1:
             res.message("*الإستفسار عن القبول بالجامعة*\n"
@@ -71,7 +82,7 @@ def reply():
                         "2️⃣ للإستعلام عن إستلام الوثائق:\n"
                         "3️⃣ لطلب سجل أكاديمي:\n"
                         "4️⃣ للتحقق من وثائق الخريجين:\n"
-                        "0️⃣ للرجوع للقائمة السابقة:") 
+                        "0️⃣ للرجوع للقائمة السابقة:")
         elif user["status"] == "main" and option == 4:
             users.update_one(
                 {"number": number}, {"$set": {"status": "OtherInquery"}})
@@ -95,7 +106,7 @@ def reply():
                         "4️⃣ للإستعلام عن حالة الترشيح:\n"
                          "5️⃣ للإستفسارات الأخري:\n"
                         "0️⃣ للرجوع للقائمة السابقة:")
-            
+
         elif user["status"] == "UnivApproval" and option == 2:
             users.update_one(
                 {"number": number}, {"$set": {"status": "UnivApproval"}})
@@ -106,7 +117,7 @@ def reply():
                         "4️⃣ اختباري اختباري اختباري :\n"
                         "5️⃣ اختباري اختباري اختباري :\n"
                         "0️⃣ اختباري اختباري اختباري :")
-            
+
         elif user["status"] == "UnivApproval" and option == 3:
             users.update_one(
                 {"number": number}, {"$set": {"status": "UnivApproval"}})
@@ -117,7 +128,7 @@ def reply():
                         "4️⃣ اختباري اختباري اختباري :\n"
                         "5️⃣ اختباري اختباري اختباري :\n"
                         "0️⃣ اختباري اختباري اختباري :")
-            
+
         else:
             res.message("Please enter a valid response")
     users.update_one({"number": number}, {"$push": {"messages": {"text": text, "date": datetime.now()}}})
