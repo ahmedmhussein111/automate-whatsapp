@@ -18,6 +18,7 @@ def reply():
     number = request.form.get("From")
     number = number.replace("whatsapp:", "")[:-2]
     res = MessagingResponse()
+    users.insert_one({"number": number, "status": "main", "messages": []})
     user = users.find_one({"number": number})
     if bool(user) == False:
         res.message(" \n اهلا وسهلا بكم في *عمادة القبول والتسجيل*"
