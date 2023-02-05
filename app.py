@@ -19,18 +19,7 @@ def reply():
     number = number.replace("whatsapp:", "")[:-2]
     res = MessagingResponse()
     user = users.find_one({"number": number})
-    if user is None:
-        res.message(" \n اهلا وسهلا بكم في *عمادة القبول والتسجيل*"
-                    "\n"
-                    " يرجي إدخال رقم الخدمة بناء علي نوع الإستفسار الخاص بكم:" "\n \n"
-                    "1️⃣ للإستفسار عن القبول بالجامعة" "\n"
-                    "2️⃣ لإستفسارات طلاب الجامعة" "\n"
-                    "3️⃣ لإستفسارات الخريجين" "\n"
-                    "4️⃣ للإستفسارات الأخري" "\n")
-
-        res.media("https://ksau-hs.edu.sa/_catalogs/masterpage/KSAUPortal/image/KSAU-HS%20logos-02.svg")
-        users.insert_one({"number": number, "status": "new", "messages": []})
-    elif user["status"] == "main" or user["status"] == "UnivApproval" or user["status"] == "StudentInquery" or user["status"] == "GraduatedInquery" or user["status"] == "OtherInquery":
+    if user["status"] == "main" or user["status"] == "UnivApproval" or user["status"] == "StudentInquery" or user["status"] == "GraduatedInquery" or user["status"] == "OtherInquery":
         try:
             option = int(text)
         except:
@@ -88,43 +77,17 @@ def reply():
 
         else:
             res.message("Please enter a valid response")
-    elif user["status"] == "ordering":
-        try:
-            option = int(text)
-        except:
-            res.message("Please enter a valid response")
-            return str(res)
-        if option == 0:
-            users.update_one(
-                {"number": number}, {"$set": {"status": "main"}})
-            res.message("You can choose from one of the options below: "
-                        "\n\n*Type*\n\n 1️⃣ To *contact* us \n 2️⃣ To *order* snacks \n 3️⃣ To know our *working hours* \n 4️⃣ "
-                        "To get our *address*")
-        elif 1 <= option <= 9:
-            cakes = ["Red Velvet Cake", "Dark Forest Cake", "Ice Cream Cake",
-                     "Plum Cake", "Sponge Cake", "Genoise Cake", "Angel Cake", "Carrot Cake", "Fruit Cake"]
-            selected = cakes[option - 1]
-            users.update_one(
-                {"number": number}, {"$set": {"status": "address"}})
-            users.update_one(
-                {"number": number}, {"$set": {"item": selected}})
-            res.message("Excellent choice 😉")
-            res.message("Please enter your address to confirm the order")
-        else:
-            res.message("Please enter a valid response")
-    elif user["status"] == "address":
-        selected = user["item"]
-        res.message("Thanks for shopping with us 😊")
-        res.message(f"Your order for *{selected}* has been received and will be delivered within an hour")
-        orders.insert_one({"number": number, "item": selected, "address": text, "order_time": datetime.now()})
-        users.update_one(
-            {"number": number}, {"$set": {"status": "ordered"}})
-    elif user["status"] == "ordered":
-        res.message("Hi, thanks for contacting again.\nYou can choose from one of the options below: "
-                    "\n\n*Type*\n\n 1️⃣ To *contact* us \n 2️⃣ To *order* snacks \n 3️⃣ To know our *working hours* \n 4️⃣ "
-                    "To get our *address*")
-        users.update_one(
-            {"number": number}, {"$set": {"status": "main"}})
+    else:
+        res.message(" \n اهلا وسهلا بكم في *عمادة القبول والتسجيل*"
+                    "\n"
+                    " يرجي إدخال رقم الخدمة بناء علي نوع الإستفسار الخاص بكم:" "\n \n"
+                    "1️⃣ للإستفسار عن القبول بالجامعة" "\n"
+                    "2️⃣ لإستفسارات طلاب الجامعة" "\n"
+                    "3️⃣ لإستفسارات الخريجين" "\n"
+                    "4️⃣ للإستفسارات الأخري" "\n")
+
+        res.media("https://ksau-hs.edu.sa/_catalogs/masterpage/KSAUPortal/image/KSAU-HS%20logos-02.svg")
+        users.insert_one({"number": number, "status": "new", "messages": []})
     users.update_one({"number": number}, {"$push": {"messages": {"text": text, "date": datetime.now()}}})
     return str(res)
 
