@@ -39,45 +39,54 @@ def reply():
             res.message(user["status"] + "0️⃣ للرجوع للقائمة الرئيسة")
             return str(res)
 
-        if user["status"] == "main" and option == 1:
-            res.message("*الإستفسار عن القبول بالجامعة*\n"
-                        "1️⃣ للقبول بمرحلة البكالوريوس لحملة شهادة الثانوية العامة:\n"
-                        "2️⃣ للقبول ببرامج الماجستير والدبلوم العالي:\n"
-                        "3️⃣ للقبول ببرنامج بكالوريوس الطب (المسار الثاني) لحملة درجة البكالوريوس في التخصصات المطلوبة:\n"
-                        "0️⃣ للرجوع للقائمة السابقة:")
-            users.update_one(
-                {"number": number}, {"$set": {"status": "UnivApproval"}})
-        elif user["status"] == "main" and option == 2:
-            users.update_one(
-                {"number": number}, {"$set": {"status": "StudentInquery"}})
-            res.message("*استفسارات طلاب الجامعة*\n"
-                        "1️⃣ للإستعلام عن طلب تغيير الحالة الأكاديمية ( الإنسحاب من الجامعة) او الإعتذار عن إكمال الدراسة:\n"
-                        "2️⃣ الإستعلام عن المواعيد المحددة لتقديم طلب:\n"
-                        "3️⃣ الإستعلام عن حالة الطلب في نظام المعلومات الطلابي:\n"
-                        "4️⃣ الإستعلام عن المكافآت:\n"
-                        "0️⃣ للرجوع للقائمة السابقة:")
-        elif user["status"] == "main" and option == 3:
-            users.update_one(
-                {"number": number}, {"$set": {"status": "GraduatedInquery"}})
-            res.message("*استفسارات الخريجين*\n"
-                        "1️⃣ لطلب الشهادة المؤقتة:\n"
-                        "2️⃣ للإستعلام عن إستلام الوثائق:\n"
-                        "3️⃣ لطلب سجل أكاديمي:\n"
-                        "4️⃣ للتحقق من وثائق الخريجين:\n"
-                        "0️⃣ للرجوع للقائمة السابقة:")
-        elif user["status"] == "main" and option == 4:
-            users.update_one(
-                {"number": number}, {"$set": {"status": "OtherInquery"}})
-            res.message("*الإستفسارات الأخري*\n"
-                         "\n"
-                        "الأسئلة الشائعة"
-                        "\n"
-                        "https://ksau-hs.edu.sa/Arabic/Admission/Pages/FAQs.aspx"
-                        "\n"
-                        "دليل المستخدم"
-                        "\n"
-                        "https://ksau-hs.edu.sa/Arabic/Admission/Pages/AdmissionGuide.aspx"
-                        )
+        if user["status"] == "main":
+            if option == 1:
+                res.message("*الإستفسار عن القبول بالجامعة*\n"
+                            "1️⃣ للقبول بمرحلة البكالوريوس لحملة شهادة الثانوية العامة:\n"
+                            "2️⃣ للقبول ببرامج الماجستير والدبلوم العالي:\n"
+                            "3️⃣ للقبول ببرنامج بكالوريوس الطب (المسار الثاني) لحملة درجة البكالوريوس في التخصصات المطلوبة:\n"
+                            "0️⃣ للرجوع للقائمة السابقة:")
+                users.update_one(
+                    {"number": number}, {"$set": {"status": "UnivApproval"}})
+            elif option == 2:
+                users.update_one(
+                    {"number": number}, {"$set": {"status": "StudentInquery"}})
+                res.message("*استفسارات طلاب الجامعة*\n"
+                            "1️⃣ للإستعلام عن طلب تغيير الحالة الأكاديمية ( الإنسحاب من الجامعة) او الإعتذار عن إكمال الدراسة:\n"
+                            "2️⃣ الإستعلام عن المواعيد المحددة لتقديم طلب:\n"
+                            "3️⃣ الإستعلام عن حالة الطلب في نظام المعلومات الطلابي:\n"
+                            "4️⃣ الإستعلام عن المكافآت:\n"
+                            "0️⃣ للرجوع للقائمة السابقة:")
+            elif option == 3:
+                users.update_one(
+                    {"number": number}, {"$set": {"status": "GraduatedInquery"}})
+                res.message("*استفسارات الخريجين*\n"
+                            "1️⃣ لطلب الشهادة المؤقتة:\n"
+                            "2️⃣ للإستعلام عن إستلام الوثائق:\n"
+                            "3️⃣ لطلب سجل أكاديمي:\n"
+                            "4️⃣ للتحقق من وثائق الخريجين:\n"
+                            "0️⃣ للرجوع للقائمة السابقة:")
+            elif option == 4:
+                users.update_one(
+                    {"number": number}, {"$set": {"status": "OtherInquery"}})
+                res.message("*الإستفسارات الأخري*\n"
+                             "\n"
+                            "الأسئلة الشائعة"
+                            "\n"
+                            "https://ksau-hs.edu.sa/Arabic/Admission/Pages/FAQs.aspx"
+                            "\n"
+                            "دليل المستخدم"
+                            "\n"
+                            "https://ksau-hs.edu.sa/Arabic/Admission/Pages/AdmissionGuide.aspx"
+                            )
+            else:
+                res.message(" \n إختيار خاطيء تم الرجوع للقائمة الرئيسية *عمادة القبول والتسجيل*"
+                            "\n"
+                            " يرجي إدخال رقم الخدمة بناء علي نوع الإستفسار الخاص بكم:" "\n \n"
+                            "1️⃣ للإستفسار عن القبول بالجامعة" "\n"
+                            "2️⃣ لإستفسارات طلاب الجامعة" "\n"
+                            "3️⃣ لإستفسارات الخريجين" "\n"
+                            "4️⃣ للإستفسارات الأخري" "\n")
         elif user["status"] == "UnivApproval":
             if option == 1:
                 users.update_one(
