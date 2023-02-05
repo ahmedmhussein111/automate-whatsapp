@@ -34,8 +34,9 @@ def reply():
         try:
             option = int(text)
         except:
-            res.message("Please enter a valid response")
-            return str(res)
+            users.update_one(
+                {"number": number}, {"$set": {"status": "main"}})
+            res.message("إختيار خاطيء إختر 0 للرجوع للقائمة السابقة")
 
         if user["status"] == "main" and option == 0:
             res.message("القائمة الرئيسية *لعمادة القبول والتسجيل*"
